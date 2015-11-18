@@ -44,4 +44,20 @@
 
 }
 
++(BOOL)CheckReachability
+{
+    // check the network Staus
+    NetworkStatusApple status;
+    ReachabilityApple *reachability=[ReachabilityApple reachabilityForInternetConnection];
+    status=[reachability currentReachabilityStatus];
+    
+    if (status==NotReachable)
+    {
+        return NO;
+    }
+    
+    return YES;
+    
+}
+
 @end

@@ -16,6 +16,7 @@
 		6A3DD5541BFAF5A300C9F1C9 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5521BFAF5A300C9F1C9 /* IconDownloader.m */; settings = {ASSET_TAGS = (); }; };
 		6A459BDA1BFB0EA0007FD09F /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BD81BFB0EA0007FD09F /* TableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		6A459BDF1BFB1422007FD09F /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BDE1BFB1422007FD09F /* Utilities.m */; settings = {ASSET_TAGS = (); }; };
+		6AE3C59E1BFC37A8000F6A0D /* ReachabilityApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		6A459BD81BFB0EA0007FD09F /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		6A459BDD1BFB1422007FD09F /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = CommonClasses/Utilities.h; sourceTree = "<group>"; };
 		6A459BDE1BFB1422007FD09F /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = CommonClasses/Utilities.m; sourceTree = "<group>"; };
+		6AE3C59C1BFC37A8000F6A0D /* ReachabilityApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReachabilityApple.h; path = CommonClasses/ReachabilityApple.h; sourceTree = "<group>"; };
+		6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReachabilityApple.m; path = CommonClasses/ReachabilityApple.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,8 @@
 		6A3DD54E1BFAF58100C9F1C9 /* CommonClasses */ = {
 			isa = PBXGroup;
 			children = (
+				6AE3C59C1BFC37A8000F6A0D /* ReachabilityApple.h */,
+				6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */,
 				6A3DD54F1BFAF5A300C9F1C9 /* AppRecord.h */,
 				6A3DD5501BFAF5A300C9F1C9 /* AppRecord.m */,
 				6A3DD5511BFAF5A300C9F1C9 /* IconDownloader.h */,
@@ -173,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A3DD5531BFAF5A300C9F1C9 /* AppRecord.m in Sources */,
+				6AE3C59E1BFC37A8000F6A0D /* ReachabilityApple.m in Sources */,
 				6A459BDA1BFB0EA0007FD09F /* TableViewCell.m in Sources */,
 				6A3CD3E91BF4B4F000590944 /* ViewController.m in Sources */,
 				6A3CD3E61BF4B4F000590944 /* AppDelegate.m in Sources */,
@@ -202,8 +208,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -225,7 +231,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "c0e28190-98ef-460f-8725-7c0d200eee6c";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -248,8 +254,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -264,7 +270,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "c0e28190-98ef-460f-8725-7c0d200eee6c";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -275,13 +281,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iostest.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c0e28190-98ef-460f-8725-7c0d200eee6c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -289,13 +295,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jayamohan Mohanan (SX9JHVZN5K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iostest.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c0e28190-98ef-460f-8725-7c0d200eee6c";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -17,7 +17,7 @@
     UITableView *tbl_list;
     NSMutableArray *arr_record;
     
-     UIRefreshControl *refreshControl;
+    UIRefreshControl *refreshControl;
 }
 
 @property(nonatomic,strong) NSMutableDictionary *imageDownloadsInProgress;

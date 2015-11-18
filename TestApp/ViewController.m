@@ -26,7 +26,7 @@
     
     [self Refresh];
     
-    self.view.backgroundColor=[UIColor redColor];
+    self.view.backgroundColor=[UIColor whiteColor];
     tbl_list.backgroundColor=[UIColor colorWithRed:214.0/255.0 green:214.0/255.0 blue:214.0/255.0 alpha:1.0];
    
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
@@ -57,6 +57,12 @@
 
 -(void)Refresh
 {
+    
+    if (![Utilities CheckReachability])
+    {
+       [refreshControl endRefreshing];
+       return;
+    }
     
     //Get Contents Here(For large data need to go with NSURLSession)
     
