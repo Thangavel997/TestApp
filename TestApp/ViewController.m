@@ -64,7 +64,7 @@
        return;
     }
     
-    //Get Contents Here(For large data need to go with NSURLSession)
+    //Get Contents Here(For large data need to go with NSURLConnection)
     
     NSString *str_url=@"https://dl.dropboxusercontent.com/u/746330/facts.json";
     

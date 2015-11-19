@@ -14,7 +14,8 @@
 
 @interface IconDownloader ()
 
-@property (nonatomic, strong) NSURLSessionDataTask *sessionTask;
+@property (nonatomic, strong) NSMutableData *activeDownload;
+@property (nonatomic, strong) NSURLConnection *imageConnection;
 
 @end
 
@@ -28,57 +29,64 @@
 
 - (void)startDownload
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.appRecord.imageURLString]];
-
-    // create an session data task to obtain and download the app icon
-    _sessionTask = [[NSURLSession sharedSession] dataTaskWithRequest:request
-                                                   completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-
-        if (error != nil)
-        {
-            if ([error code] == NSURLErrorAppTransportSecurityRequiresSecureConnection)
-            {
-                abort();
-            }
-        }
-                                                       
-        [[NSOperationQueue mainQueue] addOperationWithBlock: ^{
-            
-            // Set appIcon and clear temporary data/image
-            UIImage *image = [[UIImage alloc] initWithData:data];
-            
-            if (image.size.width != kAppIconSize || image.size.height != kAppIconSize)
-            {
-                CGSize itemSize = CGSizeMake(kAppIconSize, kAppIconSize);
-                UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
-                CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                [image drawInRect:imageRect];
-                self.appRecord.appIcon = UIGraphicsGetImageFromCurrentImageContext();
-                UIGraphicsEndImageContext();
-            }
-            else
-            {
-                self.appRecord.appIcon = image;
-            }
-            
-            // call our completion handler to tell our client that our icon is ready for display
-            if (self.completionHandler != nil)
-            {
-                self.completionHandler();
-            }
-        }];
-    }];
+    self.activeDownload = [NSMutableData data];
     
-    [self.sessionTask resume];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.appRecord.imageURLString]];
+    
+    // alloc+init and start an NSURLConnection; release on completion/failure
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    self.imageConnection = conn;
 }
 
 #pragma mark - Cancel Download
 
 - (void)cancelDownload
 {
-    [self.sessionTask cancel];
-    _sessionTask = nil;
+    [self.imageConnection cancel];
+    self.imageConnection = nil;
+    self.activeDownload = nil;
+}
+
+#pragma mark - NSURLConnectionDelegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.activeDownload appendData:data];
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    self.activeDownload = nil;
+    self.imageConnection = nil;
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
+    
+    if (image.size.width != kAppIconSize || image.size.height != kAppIconSize)
+    {
+        CGSize itemSize = CGSizeMake(kAppIconSize, kAppIconSize);
+        UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0f);
+        CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+        [image drawInRect:imageRect];
+        self.appRecord.appIcon = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    else
+    {
+        self.appRecord.appIcon = image;
+    }
+    
+    self.activeDownload = nil;
+    
+    self.imageConnection = nil;
+    
+    if (self.completionHandler)
+    {
+        self.completionHandler();
+    }
 }
 
 @end

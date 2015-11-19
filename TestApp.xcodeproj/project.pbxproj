@@ -11,12 +11,12 @@
 		6A3CD3E61BF4B4F000590944 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3CD3E51BF4B4F000590944 /* AppDelegate.m */; };
 		6A3CD3E91BF4B4F000590944 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3CD3E81BF4B4F000590944 /* ViewController.m */; };
 		6A3CD3EE1BF4B4F000590944 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A3CD3ED1BF4B4F000590944 /* Assets.xcassets */; };
-		6A3CD3F91BF4B70200590944 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A3CD3F81BF4B70200590944 /* Default-568h@2x.png */; settings = {ASSET_TAGS = (); }; };
-		6A3DD5531BFAF5A300C9F1C9 /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5501BFAF5A300C9F1C9 /* AppRecord.m */; settings = {ASSET_TAGS = (); }; };
-		6A3DD5541BFAF5A300C9F1C9 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5521BFAF5A300C9F1C9 /* IconDownloader.m */; settings = {ASSET_TAGS = (); }; };
-		6A459BDA1BFB0EA0007FD09F /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BD81BFB0EA0007FD09F /* TableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		6A459BDF1BFB1422007FD09F /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BDE1BFB1422007FD09F /* Utilities.m */; settings = {ASSET_TAGS = (); }; };
-		6AE3C59E1BFC37A8000F6A0D /* ReachabilityApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */; settings = {ASSET_TAGS = (); }; };
+		6A3CD3F91BF4B70200590944 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A3CD3F81BF4B70200590944 /* Default-568h@2x.png */; };
+		6A3DD5531BFAF5A300C9F1C9 /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5501BFAF5A300C9F1C9 /* AppRecord.m */; };
+		6A3DD5541BFAF5A300C9F1C9 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5521BFAF5A300C9F1C9 /* IconDownloader.m */; };
+		6A459BDA1BFB0EA0007FD09F /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BD81BFB0EA0007FD09F /* TableViewCell.m */; };
+		6A459BDF1BFB1422007FD09F /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BDE1BFB1422007FD09F /* Utilities.m */; };
+		6AE3C59E1BFC37A8000F6A0D /* ReachabilityApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -284,6 +284,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iostest.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -298,6 +299,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TestApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iostest.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
