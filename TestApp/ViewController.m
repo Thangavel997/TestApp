@@ -6,13 +6,21 @@
 //
 
 #import "ViewController.h"
+#import "Constants.h"
+#import "IconDownloader.h"
+#import "AppRecord.h"
+#import "Utilities.h"
+#import "CustomCell.h"
+
 
 @interface ViewController ()
 
 @end
+static NSString* const CellIdentifier = @"DynamicTableViewCell";
 
 @implementation ViewController
 @synthesize imageDownloadsInProgress;
+
 
 #pragma mark - View LifeCycle
 
@@ -21,29 +29,32 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    arr_record=[NSMutableArray new];
+    //Allocations and Set proper resizing masks for UI based controls
+    
+    arrayRecord=[NSMutableArray new];
     imageDownloadsInProgress = [NSMutableDictionary dictionary];
     
-    [self Refresh];
-    
     self.view.backgroundColor=[UIColor whiteColor];
-    tbl_list.backgroundColor=[UIColor colorWithRed:214.0/255.0 green:214.0/255.0 blue:214.0/255.0 alpha:1.0];
-   
+    tableViewList.backgroundColor=[UIColor colorWithRed:214.0/255.0 green:214.0/255.0 blue:214.0/255.0 alpha:1.0];
+    
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
     
-    tbl_list=[[UITableView alloc] initWithFrame:self.view.frame];
+    tableViewList=[[UITableView alloc] initWithFrame:self.view.frame];
+    [tableViewList registerNib:[UINib nibWithNibName:@"CustomCell" bundle: nil] forCellReuseIdentifier:CellIdentifier];
+    tableViewList.hidden=YES;
+    [self Refresh];
     
-    tbl_list.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
-    tbl_list.dataSource = self;
-    tbl_list.delegate = self;
+    tableViewList.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleBottomMargin;
+    tableViewList.dataSource = self;
+    tableViewList.delegate = self;
     
-    tbl_list.separatorColor=[UIColor colorWithRed:129.0/255.0 green:129.0/255.0 blue:129.0/255.0 alpha:1.0];
+    tableViewList.separatorColor=[UIColor colorWithRed:129.0/255.0 green:129.0/255.0 blue:129.0/255.0 alpha:1.0];
     
-    [self.view addSubview:tbl_list];
+    [self.view addSubview:tableViewList];
     
     refreshControl=[[UIRefreshControl alloc]init];
     [refreshControl addTarget:self action:@selector(Refresh) forControlEvents:UIControlEventValueChanged];
-    [tbl_list addSubview:refreshControl];
+    [tableViewList addSubview:refreshControl];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,32 +69,53 @@
 -(void)Refresh
 {
     
+    //Make sure network is available or not
     if (![Utilities CheckReachability])
     {
-       [refreshControl endRefreshing];
+        [refreshControl endRefreshing];
+        [[[UIAlertView alloc] initWithTitle:@"" message:@"Unable to connect the internet through Wifi or cellular network.Please check the settings and try again later!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
        return;
     }
     
-    //Get Contents Here(For large data need to go with NSURLConnection)
+    //Make API Call with the help of Operation queue for Asynchronous connections
+    NSURL *url = [NSURL URLWithString:BASEURL];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
-    NSString *str_url=@"https://dl.dropboxusercontent.com/u/746330/facts.json";
-    
-    NSString *string = [NSString stringWithContentsOfURL:[NSURL URLWithString:str_url] encoding:NSISOLatin2StringEncoding error:nil];
-    
-    NSData *metOfficeData = [string dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:metOfficeData options:kNilOptions error:nil];
-    
-    for (NSDictionary *dict in [jsonObject valueForKey:@"rows"])
+    [NSURLConnection sendAsynchronousRequest:urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
     {
-        AppRecord *record=[AppRecord new];
-        record.imageURLString=[dict valueForKey:@"imageHref"];
-        record.str_title=[dict valueForKey:@"title"];
-        record.str_description=[dict valueForKey:@"description"];
-        [arr_record addObject:record];
-    }
-    
-    [refreshControl endRefreshing];
+        if ([data length] > 0 && error == nil)
+        {
+            [arrayRecord removeAllObjects];
+            NSError *error;
+            //Parse the Response data based on the encoding format/Dictionary/Array
+            NSString *stringData=[[NSString alloc] initWithData:data encoding:NSISOLatin2StringEncoding];
+            NSData *metOfficeData = [stringData dataUsingEncoding:NSUTF8StringEncoding];
+            NSDictionary *jsonObject = [NSJSONSerialization JSONObjectWithData:metOfficeData options:NSJSONReadingMutableContainers error:&error];
+            //Get the Json object for further updates
+            for (NSDictionary *dict in [jsonObject valueForKey:@"rows"])
+            {
+                AppRecord *record=[AppRecord new];
+                record.imageURLString=[dict valueForKey:@"imageHref"];
+                record.stringTitle=[dict valueForKey:@"title"];
+                record.stringDescription=[dict valueForKey:@"description"];
+                [arrayRecord addObject:record];
+            }
+            //Update the UI with Main queue
+            [[NSOperationQueue mainQueue] addOperationWithBlock: ^ {
+                self.title=[jsonObject valueForKey:@"title"];
+                if (tableViewList.hidden)
+                {
+                    tableViewList.hidden=NO;
+                }
+                [tableViewList reloadData];
+                [refreshControl endRefreshing];
+            }];
+
+            
+            
+        }
+    }];
 
 }
 
@@ -91,108 +123,110 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [arr_record count];
+    //Return the no. of rows for Tableview
+    return [arrayRecord count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *cellText=@"";
+    //Calculate height Based on the Json description.
+    static CustomCell *sizingCell = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sizingCell = [tableViewList dequeueReusableCellWithIdentifier:CellIdentifier];
+    });
     
-    AppRecord *appRecord=[arr_record objectAtIndex:indexPath.row];
+    [self configureImageCell:sizingCell atIndexPath:indexPath];
     
-    if (![[Utilities checknull:appRecord.str_description] isEqualToString:@""])
+    //Update the Cell constraints
+    sizingCell.bounds = CGRectMake(0.0f, 0.0f, CGRectGetWidth(tableViewList.frame), CGRectGetHeight(sizingCell.bounds));
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    CGSize size = [sizingCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1.0f; // Add 1.0f for the cell separator height
+    
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self isLandscapeOrientation])
     {
-        cellText = appRecord.str_description;
+        return 140.0f;
     }
-    //Calculate cell height based on the description text
-    
-    float height=[Utilities calculte_height:tbl_list.frame.size.width-120.0 :cellText];
-    
-    if (40.0+height<120.0)
+    else
     {
-        return 120;
+        return 235.0f;
     }
-    
-    return 50.0+height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *CellIdentifier =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    
-    AppRecord *appRecord=[arr_record objectAtIndex:indexPath.row];
+    //Return the Cell based on Reusable Identifier
+    CustomCell *cell = (CustomCell *)[tableViewList dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    [self configureImageCell:cell atIndexPath:indexPath];
+    return cell;
 
-    NSString *cellText=@"";
+}
+- (void)configureImageCell:(CustomCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    AppRecord *appRecord=[arrayRecord objectAtIndex:indexPath.row];
     
-    if (![[Utilities checknull:appRecord.str_description] isEqualToString:@""])
+    //Check with Null function whether having proper value or not and then update the UI
+    if (![[Utilities checknull:appRecord.stringTitle] isEqualToString:@""])
     {
-        cellText = appRecord.str_description;
-    }
-    
-    
-    float height=[Utilities calculte_height:tbl_list.frame.size.width-120.0 :cellText];
-    
-    TableViewCell *cell = (TableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil)// Load cell if not available for reuse
-    {
-        cell = [[TableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    cell.lbl_title.frame = CGRectMake(10.0, 20.0, tbl_list.frame.size.width-120, 15.0);
-    cell.lbl_desc.frame = CGRectMake(10.0,40.0, tbl_list.frame.size.width-120, 25.0);
-    cell.lbl_desc.frame = CGRectMake(cell.lbl_desc.frame.origin.x, cell.lbl_desc.frame.origin.y, cell.lbl_desc.frame.size.width,height);
-    cell.img_icon.frame = CGRectMake(tbl_list.frame.size.width-85, 40.0, 75.0, 75.0);
-
-    
-    if (![[Utilities checknull:appRecord.str_title] isEqualToString:@""])
-    {
-         cell.lbl_title.text = appRecord.str_title;
+        cell.labelTitle.text = appRecord.stringTitle;
     }
     else
     {
-        cell.lbl_title.text = @"";
+        cell.labelTitle.text = @"";
     }
-   
     
-    if (![[Utilities checknull:appRecord.str_description] isEqualToString:@""])
+    
+    if (![[Utilities checknull:appRecord.stringDescription] isEqualToString:@""])
     {
-        cell.lbl_desc.text =appRecord.str_description;
+        cell.labelDescription.text =appRecord.stringDescription;
     }
     else
     {
-        cell.lbl_desc.text = @"";
+        cell.labelDescription.text = @"";
     }
     
+    //Load the Image form Json Image Url with the help of IconDownloader
     if (![[Utilities checknull:appRecord.imageURLString] isEqualToString:@""])
     {
         if (!appRecord.appIcon)
         {
-            if (tbl_list.dragging == NO && tbl_list.decelerating == NO)
+            if (tableViewList.dragging == NO && tableViewList.decelerating == NO)
             {
                 [self startIconDownload:appRecord forIndexPath:indexPath];
             }
-            cell.img_icon.image = [UIImage imageNamed:@"loading"];
+            cell.imageIcon.image = [UIImage imageNamed:@"loading"];//Update Some Loding image while dowmnloading to indicate the user.
         }
         else
         {
-            cell.img_icon.image = appRecord.appIcon;
+            cell.imageIcon.image = appRecord.appIcon;
         }
+        
     }
     else
     {
-        cell.img_icon.image = [UIImage imageNamed:@"no_image"];
+        cell.imageIcon.image = [UIImage imageNamed:@"no_image"];
     }
-    cell.selectionStyle=UITableViewCellSelectionStyleNone;
-    return cell;
     
+    //Update the Description label constraints if needed
+    if (cell.labelDescription.numberOfLines == 0 && cell.labelDescription.bounds.size.width != cell.labelDescription.preferredMaxLayoutWidth)
+    {
+        cell.labelDescription.preferredMaxLayoutWidth = cell.labelDescription.bounds.size.width;
+        [cell.labelDescription setNeedsUpdateConstraints];
+    }
+
 }
 
-#pragma mark - Handle Orienatations
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)orientation duration:(NSTimeInterval)duration
-{
-    [tbl_list reloadData];
+
+- (BOOL)isLandscapeOrientation {
+    return UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation);
 }
 
 #pragma mark - Image loading
@@ -202,12 +236,15 @@
     IconDownloader *iconDownloader = (self.imageDownloadsInProgress)[indexPath];
     if (iconDownloader == nil)
     {
+        //Update the IconDownloader class with Apprecord files i.e ImageURL and Icon(if already cached)
         iconDownloader = [[IconDownloader alloc] init];
         iconDownloader.appRecord = appRecord;
         [iconDownloader setCompletionHandler:^{
             
-            TableViewCell *cell = [tbl_list cellForRowAtIndexPath:indexPath];
-            cell.img_icon.image = appRecord.appIcon;
+            //Update the UI once Icondownloader Cached the image
+            CustomCell *cell =(CustomCell *) [tableViewList cellForRowAtIndexPath:indexPath];
+            cell.imageIcon.image = appRecord.appIcon;
+            
             [self.imageDownloadsInProgress removeObjectForKey:indexPath];
             
         }];
@@ -218,12 +255,13 @@
 
 - (void)loadImagesForOnscreenRows
 {
-    if (arr_record.count > 0)
+    if (arrayRecord.count > 0)
     {
-        NSArray *visiblePaths = [tbl_list indexPathsForVisibleRows];
+        //Load the image for AppReocrd for Visible rows
+        NSArray *visiblePaths = [tableViewList indexPathsForVisibleRows];
         for (NSIndexPath *indexPath in visiblePaths)
         {
-            AppRecord *appRecord = (arr_record)[indexPath.row];
+            AppRecord *appRecord = (arrayRecord)[indexPath.row];
             
              if (![[Utilities checknull:appRecord.imageURLString] isEqualToString:@""])
              {

@@ -8,6 +8,7 @@
 
 #import "IconDownloader.h"
 #import "AppRecord.h"
+#import "Utilities.h"
 
 #define kAppIconSize 75
 
@@ -31,6 +32,7 @@
 {
     self.activeDownload = [NSMutableData data];
     
+    //Start the Url Connection for for ImageReuests
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.appRecord.imageURLString]];
     
     // alloc+init and start an NSURLConnection; release on completion/failure
@@ -52,11 +54,14 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+    //Receive the Image data
     [self.activeDownload appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
+    //Update on Failure
+    self.appRecord.appIcon=[UIImage imageNamed:@"no_image"];
     self.activeDownload = nil;
     self.imageConnection = nil;
 }
@@ -65,6 +70,8 @@
 {
     UIImage *image = [[UIImage alloc] initWithData:self.activeDownload];
     
+    
+    //Update the image with proper size
     if (image.size.width != kAppIconSize || image.size.height != kAppIconSize)
     {
         CGSize itemSize = CGSizeMake(kAppIconSize, kAppIconSize);

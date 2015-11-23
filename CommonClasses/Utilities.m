@@ -27,23 +27,6 @@
     }
 }
 
-+(float) calculte_height: (float)width :(NSString *)str_desc
-{
-    CGSize constraintSize = CGSizeMake(width, MAXFLOAT);
-    
-    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                          [UIFont systemFontOfSize:12.0], NSFontAttributeName,
-                                          nil];
-    
-    
-    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:str_desc attributes:attributesDictionary];
-    
-    CGRect requiredHeight = [string boundingRectWithSize:constraintSize options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-    
-    return requiredHeight.size.height;
-
-}
-
 +(BOOL)CheckReachability
 {
     // check the network Staus

@@ -14,8 +14,9 @@
 		6A3CD3F91BF4B70200590944 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A3CD3F81BF4B70200590944 /* Default-568h@2x.png */; };
 		6A3DD5531BFAF5A300C9F1C9 /* AppRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5501BFAF5A300C9F1C9 /* AppRecord.m */; };
 		6A3DD5541BFAF5A300C9F1C9 /* IconDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A3DD5521BFAF5A300C9F1C9 /* IconDownloader.m */; };
-		6A459BDA1BFB0EA0007FD09F /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BD81BFB0EA0007FD09F /* TableViewCell.m */; };
 		6A459BDF1BFB1422007FD09F /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A459BDE1BFB1422007FD09F /* Utilities.m */; };
+		6A53A6791C02D62B00845846 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A53A6771C02D62B00845846 /* CustomCell.m */; };
+		6A53A67A1C02D62B00845846 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A53A6781C02D62B00845846 /* CustomCell.xib */; };
 		6AE3C59E1BFC37A8000F6A0D /* ReachabilityApple.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */; };
 /* End PBXBuildFile section */
 
@@ -33,12 +34,14 @@
 		6A3DD5501BFAF5A300C9F1C9 /* AppRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppRecord.m; path = CommonClasses/AppRecord.m; sourceTree = "<group>"; };
 		6A3DD5511BFAF5A300C9F1C9 /* IconDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IconDownloader.h; path = CommonClasses/IconDownloader.h; sourceTree = "<group>"; };
 		6A3DD5521BFAF5A300C9F1C9 /* IconDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IconDownloader.m; path = CommonClasses/IconDownloader.m; sourceTree = "<group>"; };
-		6A459BD71BFB0EA0007FD09F /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
-		6A459BD81BFB0EA0007FD09F /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		6A459BDD1BFB1422007FD09F /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = CommonClasses/Utilities.h; sourceTree = "<group>"; };
 		6A459BDE1BFB1422007FD09F /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utilities.m; path = CommonClasses/Utilities.m; sourceTree = "<group>"; };
-		6AE3C59C1BFC37A8000F6A0D /* ReachabilityApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReachabilityApple.h; path = CommonClasses/ReachabilityApple.h; sourceTree = "<group>"; };
-		6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReachabilityApple.m; path = CommonClasses/ReachabilityApple.m; sourceTree = "<group>"; };
+		6A53A6761C02D62B00845846 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		6A53A6771C02D62B00845846 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		6A53A6781C02D62B00845846 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		6AC13F061C03112600B68A43 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = CommonClasses/Constants.h; sourceTree = "<group>"; };
+		6AE3C59C1BFC37A8000F6A0D /* ReachabilityApple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReachabilityApple.h; path = ../CommonClasses/ReachabilityApple.h; sourceTree = "<group>"; };
+		6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReachabilityApple.m; path = ../CommonClasses/ReachabilityApple.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +58,6 @@
 		6A3CD3D51BF4B4F000590944 = {
 			isa = PBXGroup;
 			children = (
-				6A3DD54E1BFAF58100C9F1C9 /* CommonClasses */,
 				6A3CD3E01BF4B4F000590944 /* TestApp */,
 				6A3CD3DF1BF4B4F000590944 /* Products */,
 			);
@@ -74,12 +76,10 @@
 			children = (
 				6A3CD3E41BF4B4F000590944 /* AppDelegate.h */,
 				6A3CD3E51BF4B4F000590944 /* AppDelegate.m */,
-				6A3CD3E71BF4B4F000590944 /* ViewController.h */,
-				6A3CD3E81BF4B4F000590944 /* ViewController.m */,
-				6A459BD71BFB0EA0007FD09F /* TableViewCell.h */,
-				6A459BD81BFB0EA0007FD09F /* TableViewCell.m */,
-				6A3CD3ED1BF4B4F000590944 /* Assets.xcassets */,
-				6A3CD3F21BF4B4F000590944 /* Info.plist */,
+				6AC13ECB1C02F72D00B68A43 /* Controllers */,
+				6AC13ECC1C02F74500B68A43 /* Views */,
+				6AC13F051C0310F000B68A43 /* NetworkManager */,
+				6A3DD54E1BFAF58100C9F1C9 /* CommonClasses */,
 				6A3CD3E11BF4B4F000590944 /* Supporting Files */,
 			);
 			path = TestApp;
@@ -88,7 +88,9 @@
 		6A3CD3E11BF4B4F000590944 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6A3CD3ED1BF4B4F000590944 /* Assets.xcassets */,
 				6A3CD3F81BF4B70200590944 /* Default-568h@2x.png */,
+				6A3CD3F21BF4B4F000590944 /* Info.plist */,
 				6A3CD3E21BF4B4F000590944 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -97,8 +99,7 @@
 		6A3DD54E1BFAF58100C9F1C9 /* CommonClasses */ = {
 			isa = PBXGroup;
 			children = (
-				6AE3C59C1BFC37A8000F6A0D /* ReachabilityApple.h */,
-				6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */,
+				6AC13F061C03112600B68A43 /* Constants.h */,
 				6A3DD54F1BFAF5A300C9F1C9 /* AppRecord.h */,
 				6A3DD5501BFAF5A300C9F1C9 /* AppRecord.m */,
 				6A3DD5511BFAF5A300C9F1C9 /* IconDownloader.h */,
@@ -107,6 +108,35 @@
 				6A459BDE1BFB1422007FD09F /* Utilities.m */,
 			);
 			name = CommonClasses;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		6AC13ECB1C02F72D00B68A43 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6A3CD3E71BF4B4F000590944 /* ViewController.h */,
+				6A3CD3E81BF4B4F000590944 /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6AC13ECC1C02F74500B68A43 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A53A6761C02D62B00845846 /* CustomCell.h */,
+				6A53A6771C02D62B00845846 /* CustomCell.m */,
+				6A53A6781C02D62B00845846 /* CustomCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6AC13F051C0310F000B68A43 /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3C59C1BFC37A8000F6A0D /* ReachabilityApple.h */,
+				6AE3C59D1BFC37A8000F6A0D /* ReachabilityApple.m */,
+			);
+			name = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A3CD3EE1BF4B4F000590944 /* Assets.xcassets in Resources */,
+				6A53A67A1C02D62B00845846 /* CustomCell.xib in Resources */,
 				6A3CD3F91BF4B70200590944 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,12 +210,12 @@
 			files = (
 				6A3DD5531BFAF5A300C9F1C9 /* AppRecord.m in Sources */,
 				6AE3C59E1BFC37A8000F6A0D /* ReachabilityApple.m in Sources */,
-				6A459BDA1BFB0EA0007FD09F /* TableViewCell.m in Sources */,
 				6A3CD3E91BF4B4F000590944 /* ViewController.m in Sources */,
 				6A3CD3E61BF4B4F000590944 /* AppDelegate.m in Sources */,
 				6A3CD3E31BF4B4F000590944 /* main.m in Sources */,
 				6A459BDF1BFB1422007FD09F /* Utilities.m in Sources */,
 				6A3DD5541BFAF5A300C9F1C9 /* IconDownloader.m in Sources */,
+				6A53A6791C02D62B00845846 /* CustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,10 +311,12 @@
 		6A3CD3F61BF4B4F000590944 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_OWNER = Thangavel;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TestApp/Info.plist;
+				INSTALL_OWNER = Thangavel;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iostest.app;
@@ -295,10 +328,12 @@
 		6A3CD3F71BF4B4F000590944 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALTERNATE_OWNER = Thangavel;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TestApp/Info.plist;
+				INSTALL_OWNER = Thangavel;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.iostest.app;

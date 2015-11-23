@@ -11,8 +11,7 @@
 
 @interface Utilities : NSObject
 
-+ (NSString *)checknull :(NSString *)value;
-+(float) calculte_height: (float)width :(NSString *)str_desc;
++(NSString *)checknull :(NSString *)value;
 +(BOOL)CheckReachability;
 
 @end
